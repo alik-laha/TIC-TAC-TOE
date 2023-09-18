@@ -1,0 +1,26 @@
+*{
+  box-sizing: border-box;
+}
+.row{
+  display: flex;
+  align-items: center;
+}
+.box{
+  border: 2px solid black;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.now{
+  position: absolute;
+  top: 120px;
+}
