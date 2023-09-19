@@ -4,13 +4,19 @@ import { useState } from "react";
 
 let Game = () => {
   const [count, setCount] = useState(Array(9).fill(null));
-
+  const [winner, setWinner] = useState("");
   const [xtern, setXtern] = useState(true);
+  const [p1, setP1] = useState(0);
+  const [p2, setP2] = useState(0);
 
   const handleClick = (index) => {
     const copystate = [...count];
 
-    copystate[index] = xtern ? "x" : "0";
+    if (xtern && copystate[index] === null) {
+      copystate[index] = "X";
+    } else if (copystate[index] === null && !xtern) {
+      copystate[index] = "0";
+    }
 
     setCount(copystate);
 
@@ -32,9 +38,11 @@ let Game = () => {
 
       if (count[a] !== null && count[a] === count[b] && count[a] === count[c]) {
         if (xtern === true) {
-          console.log("winner is 0");
+          setWinner("0");
+          setP2(p2 + 1);
         } else {
-          console.log("winner is X");
+          setWinner("X");
+          setP1(p1 + 1);
         }
         return true;
       }
@@ -45,11 +53,13 @@ let Game = () => {
   if (isWinner) {
     setCount(Array(9).fill(null));
   }
-
   return (
     <>
       <div className="container">
-        <h1 className="now">Now turn {xtern ? "x" : "0"}</h1>
+        <div className="now">
+          <h1 className="winner">previus game winner is {winner}</h1>
+          <h1 className="turn">Now turn {xtern ? "x" : "0"}</h1>
+        </div>
         <div className="board">
           <div className="row">
             <Box value={count[0]} onclick={() => handleClick(0)} />
@@ -65,6 +75,16 @@ let Game = () => {
             <Box value={count[6]} onclick={() => handleClick(6)} />
             <Box value={count[7]} onclick={() => handleClick(7)} />
             <Box value={count[8]} onclick={() => handleClick(8)} />
+          </div>
+        </div>
+        <div className="point">
+          <div className="p1">
+            <p>p1</p>
+            <p className="score">{p1}</p>
+          </div>
+          <div className="p2">
+            <p>p2</p>
+            <p className="score">{p2}</p>
           </div>
         </div>
       </div>
